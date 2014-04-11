@@ -1,0 +1,64 @@
+\part{Images}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{What are images?}
+\framesubtitle{}
+There are various answers to this question
+\begin{itemize}
+\item Typically
+  \begin{itemize}
+  \item A blob of data representing the contents of a disk or file system
+  \item Usually contains the root file system contents of an operating system
+  \end{itemize}
+\item Data
+\item Image is usually used as a \emph{template} to create a virtual
+  machine or \emph{instance} of it.
+%% another wonderful diagram showing the relations among image and instance
+%% will add additional relations later on, e.g. block storage volumes
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Image Creation}
+\framesubtitle{Basic Steps}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Image Creation}
+\framesubtitle{Final Cleanup}
+\begin{itemize}
+\item Passwords
+\item Log files
+\item Excessive data
+\item ...?
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Image Creation}
+\framesubtitle{Packaging}
+\begin{itemize}
+\item zerofree
+\item create compressed qcow2
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Image Creation}
+\framesubtitle{Updates}
+\begin{itemize}
+\item Steps to update contents of an image and create a new one
+\item Is this really possible with \emph{only OCCI} commands?
+  \begin{itemize}
+  \item We'd certainly want to support this, i.\,e. take an instance,
+    create a snapshot of it and use thas as a new image.
+  \end{itemize}
+\end{itemize}
+\end{frame}
