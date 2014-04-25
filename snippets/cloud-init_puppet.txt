@@ -1,0 +1,44 @@
+#cloud-config
+# cf. http://cloudinit.readthedocs.org/en/latest/topics/examples.html#setup-and-run-puppet
+packages:
+- puppet
+puppet:
+ conf:
+   agent:
+     server: "puppet.zam.kfa-juelich.de"
+     certname: "%i.%f"
+     report: "true"
+     logdest: "/var/log/puppet/agent.log"
+   ca_cert: |
+      -----BEGIN CERTIFICATE-----
+      MIIFVDCCAzygAwIBAgIBATANBgkqhkiG9w0BAQsFADAvMS0wKwYDVQQDDCRQdXBw
+      ZXQgQ0E6IHphbTM1My56YW0ua2ZhLWp1ZWxpY2guZGUwHhcNMTMwODI2MTA1OTEz
+      WhcNMTgwODI2MTA1OTEzWjAvMS0wKwYDVQQDDCRQdXBwZXQgQ0E6IHphbTM1My56
+      YW0ua2ZhLWp1ZWxpY2guZGUwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoIC
+      AQCv/rAOql0O0ZT9rDoh1Z64QzGLD+W8dBFjp0VfM75ZXBO1G+4o91OE5WaMh0W5
+      O5tQ7Z+/jMyrJFYYrTtlo4S9xg8mx1quVqF4L+ft34K1GMfKI2fi7K4Rn2h/G5RX
+      pXbnuwnqvI4CqgQAP3YS979+59HgTpg97qyD3sJKwNhU8TMyz0nxagT8lWk8HjFF
+      CTEYUckAzOgSNJtRG1ja5ZP9x9hpdO1mZd8Ps1K7krWm2QwOUYVaCLUMTCATYlxT
+      K7Y0FGJV9jy7dH6DyIsPZCXR3bV2DGqzmZP+ulmDObxN6fDM/fISMtvIKVdjQaRx
+      15tm5FyilJpYBF0BMtR4PG5VjcT+b3tQv5A1gH3GQEsZxAHmoulXq0tCt6AOK4bQ
+      1BQHt7I+jv81+shb/WzjFalbDFhDBd88pSKUhzQ/DFTxT6iyaTUsoQwvVgXy1u/T
+      Lg8eyhIvhgVd83AhsA9kgrTLnwzHbdns29D8d/AXNmeRDluJAkHjM9P1R/RAaLk0
+      dPdP+G+GLcx9ZvDHpVpyhVL15Pb/Sr+ujuIPCP9Ft/j0j9fSvDz1T535o0JYXXT1
+      Cvggkoc/6KI0fs9sPufDpuPxY7U6oJU7lGDRtkaC+0+U04wn6KxcB4CLkGc9WojL
+      acMxA477BbDh/kW6SBlo2E8VXDuqQePU2qWXF2q3NooV4QIDAQABo3sweTAdBgNV
+      HQ4EFgQUpIrVXvoM+KPhXzvZ2T6DFuK22bowDgYDVR0PAQH/BAQDAgEGMDcGCWCG
+      SAGG+EIBDQQqFihQdXBwZXQgUnVieS9PcGVuU1NMIEludGVybmFsIENlcnRpZmlj
+      YXRlMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggIBAKqANc0XirGJ
+      CbEBa2AJUsdWQihcLFnZLV37LxJuQ7V/K9KHTw8hWIKEfnubYiCkr+H1ohxFF//j
+      dfk24X7E8nLpXjM7K+Z1s8tkrqdMw5VFXDmYAa9vjJap+OlhXva3bauwnMoa+TWu
+      9sXORgPI2KsgMPHZEqavcIBFrMszARLCiHyYjE5jcGKUBg0kBgWXOC8NK9cWhEL2
+      5gGDI2mgWzVGtUgASrnXmshu/CUazz60A8Ze45L6iVczyls6mzJgkX6kWGxyWjtX
+      lTAddGzz0//Vo5x6W3mwLj9Wne9IqyuuvLtg9FUD1H8wExYP6XRalbXeDg7G/uKD
+      TAAwPsBoxhM3yBA0Z0C3X1xLc5BuYSTm/0s9jA2fvHr/WreCbWPWzjp+i1+KI3Fj
+      QAPqcEhaqonWCBxMbTYJO7TjVM5Z/d3Mp7hxqMKDWCLg2klZdeUW2ANsN+ngcdxI
+      eAdHrQmJUaTxxhz74tJezhMh+9tJVl5rJdmMZPmOXBd0XH2aqcPsnpbtrn7jh44V
+      BhfMeFdxN5UpD310PbRNsiP8J5O74kZYXMLQrpq4qkZ4iCbZzB6r8LDKuK7MNAP+
+      lF+v2VwXh8TE54sdAe+KYGvF3lzC6KiSkOr0TV0yOamSdFhxWkOCpvVGu7ey/MSX
+      VU5mUvJUth4vL4W7KHmPlziLETe692BU
+      -----END CERTIFICATE-----
+
