@@ -23,7 +23,58 @@ There are various answers to this question
 \begin{frame}
 \frametitle{Image Creation}
 \framesubtitle{Basic Steps}
+Starting points
+\begin{itemize}
+\item Existing images
+\item Installation medium
+\item Special installers
+\end{itemize}
+Our recommendation
+\begin{itemize}
+\item Existing images
+  \begin{itemize}
+  \item Basic images of popular LINUX distributions available
+    \begin{itemize}
+    \item Ubuntu
+    \item Debian
+    \item ScientificLinux
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+\end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Image Creation}
+\framesubtitle{Starting from existing images}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Image Creation}
+\framesubtitle{Starting from scratch}
+An example
+\begin{lstlisting}
+  $ truncate -s 1G debian-7.4.0.img
+  $ kvm -cdrom debian-7.4.0-amd64-netinst.iso debian-7.4.0.img
+\end{lstlisting}
+During installation
+\begin{itemize}
+\item Select ``Install''
+\item Give a strong root password despite it being locked later on
+\item Use manual partitioning
+  \begin{itemize}
+  \item Avoid creating a swap partition and put everything in one partition
+  \item Additional block devices can and should be added at runtime
+  \end{itemize}
+\item Software installation
+  \begin{itemize}
+  \item Install as few packages as possible
+  \end{itemize}
+\item Boot loader on MBR
+\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -34,8 +85,12 @@ There are various answers to this question
 \item Passwords
 \item Log files
 \item Excessive data
+  \begin{itemize}
+  \item Find it using du or ncdu
+  \end{itemize}
 \item ...?
 \end{itemize}
+We posted the general procedure in the EGI Blog: \url{http://goo.gl/ju7vgP}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -46,6 +101,7 @@ There are various answers to this question
 \item zerofree
 \item create compressed qcow2
 \end{itemize}
+More details in the EGI Blog: \url{http://goo.gl/UA6t1Y}
 \end{frame}
 
 
@@ -60,5 +116,6 @@ There are various answers to this question
   \item We'd certainly want to support this, i.\,e. take an instance,
     create a snapshot of it and use thas as a new image.
   \end{itemize}
+\item It should be just as easy as creating an image from an existing one.
 \end{itemize}
 \end{frame}

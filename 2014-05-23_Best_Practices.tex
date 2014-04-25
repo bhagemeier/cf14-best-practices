@@ -3,6 +3,18 @@
 \usetheme{egi}
 
 \usepackage[utf8x]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{grey80}{rgb}{0.8,0.8,0.8}
+
+\lstset{basicstyle=\footnotesize\ttfamily,
+  numberstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  breakatwhitespace=true,
+%  backgroundcolor=\color{grey80},
+  frame=single,
+  numbers=left}
 
 \title{Best Practices for Cloud Application Architecture}
 \subtitle{EGI Community Forum 2014}
@@ -13,11 +25,11 @@
 
 \maketitle
 
-\input{overview}
-\input{iaas}
-\input{images}
-\input{architecture}
-\input{contextualization}
-\input{storage}
+\input{overview} % Björn
+\input{iaas} % Björn
+\input{images} % Björn
+\input{architecture} % Björn
+\input{contextualization} % Boris
+\input{storage} % Boris
 
 \end{document}
