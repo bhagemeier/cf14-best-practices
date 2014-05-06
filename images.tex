@@ -2,25 +2,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{What are images?}
-\framesubtitle{}
-There are various answers to this question
-\begin{itemize}
-\item Typically
-  \begin{itemize}
-  \item A blob of data representing the contents of a disk or file system
-  \item Usually contains the root file system contents of an operating system
-  \end{itemize}
-\item Data
-\item Image is usually used as a \emph{template} to create a virtual
-  machine or \emph{instance} of it.
-%% another wonderful diagram showing the relations among image and instance
-%% will add additional relations later on, e.g. block storage volumes
-\end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
 \frametitle{Image Creation}
 \framesubtitle{Basic Steps}
 Starting points
@@ -95,13 +76,86 @@ We posted the general procedure in the EGI Blog: \url{http://goo.gl/ju7vgP}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+\frametitle{Removing/Truncating Log Files}
+\framesubtitle{}
+\begin{itemize}
+\item Avoids leaking of potentially personal/sensitive data, though
+  not likely during installation
+\item Reduces image size if lots of logging data was created during a
+  longer installation process
+\item We've used the option to truncate log files to size 0
+  \begin{itemize}
+  \item Keeps files and their permissions
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Excessive Data}
+\framesubtitle{}
+Look for
+\begin{itemize}
+\item Old Linux kernels and their modules in \texttt{/boot} and
+  \texttt{/lib/modules}
+\item Undesired services
+  \begin{itemize}
+  \item some distributions install a number of services by default
+  \item web, mail, etc.
+  \item remove them also for security reasons
+  \end{itemize}
+\item Unused packages
+  \begin{itemize}
+  \item after removal of undesired services, some dependencies may not
+    be needed anymore
+  \end{itemize}
+\item Clear the package cache
+  \begin{itemize}
+  \item apt-get clean
+  \item yum clean all
+  \item zypper clean --all
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Excessive Data}
+\framesubtitle{}
+You can go on a hunt for the biggest directory structures of your image. The following tools will help you
+\begin{itemize}
+\item du
+  \begin{itemize}
+  \item du -a / | sort -n -r| head -10
+  \item du -hsx *| sort -rh | head -10
+  \end{itemize}
+\item ncdu
+  \begin{itemize}
+  \item an interactive version of the above commands
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
 \frametitle{Image Creation}
 \framesubtitle{Packaging}
 \begin{itemize}
-\item zerofree
-\item create compressed qcow2
+\item Use zerofree to set unused blocks in the file system to '0'
+  \begin{lstlisting}
+  # kpartx -a debian-7.4.0.img
+  # zerofree /dev/mapper/loop0p1
+  # kpartx -d debian-7.4.0.img
+  \end{lstlisting}
+\item Create compressed qcow2
+  \begin{lstlisting}
+  $ qemu-img convert -c -f raw -O qcow2 -p debian-7.4.0.img debian-7.4.0.qcow2
+  \end{lstlisting}
+\item Including zerofree, we've seen image sizes up to 50\% smaller
+  than without it
 \end{itemize}
-More details in the EGI Blog: \url{http://goo.gl/UA6t1Y}
+ More details in the EGI Blog:
+  \url{http://goo.gl/UA6t1Y}
 \end{frame}
 
 
@@ -117,5 +171,14 @@ More details in the EGI Blog: \url{http://goo.gl/UA6t1Y}
     create a snapshot of it and use thas as a new image.
   \end{itemize}
 \item It should be just as easy as creating an image from an existing one.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Image Creation -- Tools}
+\framesubtitle{}
+\begin{itemize}
+\item 
 \end{itemize}
 \end{frame}
