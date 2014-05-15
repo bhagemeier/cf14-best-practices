@@ -2,20 +2,89 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{What is Contextualization?}
-  \framesubtitle{}
+  \frametitle{Contextualization}
+  \framesubtitle{What is it?}
+
+  A way to
+  \begin{itemize}
+    \item inject user credentials on boot
+    \item perform simple configuration tasks
+    \item customize generic images on boot
+    \item pass arbitrary data into virtual machine instances
+  \end{itemize}
+
+  \hfill\\
+
+  \textbf{NOT} a way to
+  \begin{itemize}
+    \item transfer large amounts of data
+    \item perform complex or interactive tasks
+    \item replace configuration management or orchestration tools
+  \end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{cloud-init}
-  \framesubtitle{}
+  \frametitle{Contextualization}
+  \framesubtitle{How it works?}
+
+  \begin{enumerate}
+    \item Data is passed to the instance at boot
+    \item The instance is expected to use it
+    \item Implementation is usually platform-specific
+    \item There are attempts to "standardize" the process
+  \end{enumerate}
+
+  \hfill\\
+
+  \textbf{Delivery mechanisms}: custom-made scripts, direct injection, metadata services, contextualization disks
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Usage Example}
-  \framesubtitle{}
+  \frametitle{Contextualization}
+  \framesubtitle{Using \textit{cloud-init}}
+
+  \begin{itemize}
+    \item \textit{De facto} standard for multi-platform contextualization
+    \item Supports multiple delivery mechanisms $\rightarrow$ "datasources"
+    \item Offers implementations of commonly performed tasks $\rightarrow$ "modules"
+    \item Configuration in the form of a YAML file $\rightarrow$ "user\_data"
+  \end{itemize}
+
+  \hfill\\
+
+  For details, see \href{http://cloudinit.readthedocs.org/en/latest/index.html}{\nolinkurl{http://cloudinit.readthedocs.org/en/latest/index.html}}.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Contextualization}
+  \framesubtitle{Using Orchestration}
+
+  \begin{itemize}
+    \item TODO
+  \end{itemize}
+
+  \textbf{Tools}: puppet, chef, ansible, salt, CFEngine
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Contextualization}
+  \framesubtitle{Usage Example -- Simple}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Contextualization}
+  \framesubtitle{Usage Example -- Advanced}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Contextualization}
+  \framesubtitle{Usage Example -- Orchestration}
 \end{frame}
 
 %%% Local Variables:
