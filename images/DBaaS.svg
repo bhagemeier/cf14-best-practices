@@ -574,8 +574,8 @@
      showgrid="false"
      inkscape:window-width="1380"
      inkscape:window-height="935"
-     inkscape:window-x="303"
-     inkscape:window-y="128"
+     inkscape:window-x="477"
+     inkscape:window-y="140"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata28213">
@@ -585,7 +585,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -834,5 +834,17 @@
        d="m 381.44131,593.43398 c -157.14762,-0.73456 -155.71919,-0.7149 -155.71919,-0.7149"
        id="path29758"
        inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="264.28574"
+       y="580.93365"
+       id="text35410"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan35412"
+         x="264.28574"
+         y="580.93365"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Arial;-inkscape-font-specification:Arial">Block device</tspan></text>
   </g>
 </svg>
