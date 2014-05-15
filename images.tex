@@ -7,8 +7,8 @@
 Starting points
 \begin{itemize}
 \item Existing images
-\item Installation medium
-\item Special installers
+\item Installation media
+\item Special tools for image creation
 \end{itemize}
 Our recommendation
 \begin{itemize}
@@ -28,7 +28,23 @@ Our recommendation
 \begin{frame}
 \frametitle{Image Creation}
 \framesubtitle{Starting from existing images}
-
+\begin{itemize}
+\item Download image from repository
+\item Start image
+  \begin{itemize}
+  \item Start it as a VM
+    \begin{itemize}
+    \item Caveat: need local virtualization platform, e.\,g. KVM
+    \end{itemize}
+  \item Alternative: start as a cloud instance and create snapshot
+    \begin{itemize}
+    \item Caveat: creating snapshots not standardized among platforms
+    \end{itemize}
+  \end{itemize}
+\item Make your updates and modifications
+\item Clean up as you would do for a new image
+\item Re-package the image
+\end{itemize}
 
 \end{frame}
 
@@ -49,21 +65,38 @@ During installation
   \begin{itemize}
   \item Avoid creating a swap partition and put everything in one partition
   \item Additional block devices can and should be added at runtime
+  \item \emph{Do not} use LVM based setups
   \end{itemize}
-\item Software installation
-  \begin{itemize}
-  \item Install as few packages as possible
-  \end{itemize}
-\item Boot loader on MBR
 \end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Image Creation}
+\framesubtitle{Starting from scratch (cont'd)}
+During installation
+\begin{itemize}
+\item Software installation
+  \begin{itemize}
+  \item Install as few packages as possible
+  \item Default set of system utilities
+  \item SSH server
+  \end{itemize}
+\item Boot loader on MBR
+\end{itemize}
+\end{frame}
+
+
+%% Optionally go through an example installation process 
+%% We have screenshots for Debian
+%% If adding it here, provide a fast forward link to skip this
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Image Creation}
 \framesubtitle{Final Cleanup}
 \begin{itemize}
-\item Passwords
+\item Users and passwords
 \item Log files
 \item Excessive data
   \begin{itemize}
@@ -71,16 +104,19 @@ During installation
   \end{itemize}
 \item ...?
 \end{itemize}
-We posted the general procedure in the EGI Blog: \url{http://goo.gl/ju7vgP}
+\hfill\scriptsize{We posted the general procedure in the EGI Blog: \url{http://goo.gl/ju7vgP}}
+%% \begin{tikzpicture}
+%%   \node at (11,-1) [absolute,overlay] {\pgfimage[width=1cm]{images/goo.gl_ju7vgP.png}};
+%% \end{tikzpicture}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{Removing/Truncating Log Files}
-\framesubtitle{}
+\begin{frame}[fragile]
+\frametitle{Image Creation}
+\framesubtitle{Log Files}
 \begin{itemize}
 \item Avoids leaking of potentially personal/sensitive data, though
-  not likely during installation
+  not likely right after installation
 \item Reduces image size if lots of logging data was created during a
   longer installation process
 \item We've used the option to truncate log files to size 0
@@ -88,6 +124,9 @@ We posted the general procedure in the EGI Blog: \url{http://goo.gl/ju7vgP}
   \item Keeps files and their permissions
   \end{itemize}
 \end{itemize}
+\begin{lstlisting}
+  # find /var/log -type f -exec truncate -s 0 {} \;
+\end{lstlisting}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -119,20 +158,47 @@ Look for
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{Excessive Data}
-\framesubtitle{}
+\begin{frame}[fragile]
+\frametitle{Image Creation}
+\framesubtitle{Finding Excessive Data}
 You can go on a hunt for the biggest directory structures of your image. The following tools will help you
 \begin{itemize}
 \item du
   \begin{itemize}
-  \item du -a / | sort -n -r| head -10
-  \item du -hsx *| sort -rh | head -10
+  \item \lstinline{du -a / | sort -n -r| head -10}
+  \item \lstinline{du -hsx *| sort -rh | head -10}
   \end{itemize}
 \item ncdu
   \begin{itemize}
   \item an interactive version of the above commands
   \end{itemize}
+\end{itemize}
+
+\begin{tikzpicture}
+  \node at (9, -.7) [absolute,overlay] {\pgfimage[width=.4\textwidth]{images/screenshots/ncdu.png}};
+\end{tikzpicture}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Image Creation}
+\framesubtitle{Tools}
+These tools can be used to deal with images after their creation. They
+help to create small clean images and access the file systems within
+for a final touch up.
+
+qemu-img
+\begin{itemize}
+\item mainly used for image converstion, e.g. from raw to (compressed) QCOW2
+\end{itemize}
+zerofree
+\begin{itemize}
+\item zero out unused blocks in a file system
+\item improves compression ratio
+\end{itemize}
+kpartx
+\begin{itemize}
+\item Make partitions within image files available as block devices in the current system
 \end{itemize}
 \end{frame}
 
@@ -143,7 +209,8 @@ You can go on a hunt for the biggest directory structures of your image. The fol
 \begin{itemize}
 \item Use zerofree to set unused blocks in the file system to '0'
   \begin{lstlisting}
-  # kpartx -a debian-7.4.0.img
+  # kpartx -av debian-7.4.0.img
+  add map loop0p1 (254:4): 0 4190208 linear /dev/loop0 2048
   # zerofree /dev/mapper/loop0p1
   # kpartx -d debian-7.4.0.img
   \end{lstlisting}
@@ -151,13 +218,50 @@ You can go on a hunt for the biggest directory structures of your image. The fol
   \begin{lstlisting}
   $ qemu-img convert -c -f raw -O qcow2 -p debian-7.4.0.img debian-7.4.0.qcow2
   \end{lstlisting}
-\item Including zerofree, we've seen image sizes up to 50\% smaller
+\item Including zerofree, we've seen compressed image sizes up to 50\% smaller
   than without it
 \end{itemize}
- More details in the EGI Blog:
+\hfill\scriptsize More details in the EGI Blog:
   \url{http://goo.gl/UA6t1Y}
+%% \begin{tikzpicture}
+%%   \node at (1,0) [absolute,overlay] {\pgfimage[width=1cm]{images/goo.gl_UA6t1Y.png}};
+%% \end{tikzpicture}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Image Creation}
+\framesubtitle{Hardening}
+Try and make your images secure. Some simple measures:
+\begin{itemize}
+\item Disable or uninstall unneeded services and other software
+\item Do not allow unauthenticated access
+\item Use Strong passwords or disallow passwords
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Image Maintainance}
+\framesubtitle{Things to avoid}
+When creating or updating images, the following can occur
+\begin{itemize}
+\item Unneded software may remain installed
+  \begin{itemize}
+  \item Particularly true for older Kernel versions and their modules
+  \item Modules for a single Kernel are roughly 100MB
+  \item Desktop environment
+  \item Office suites
+  \item Games
+  \end{itemize}
+\item Swap files
+  \begin{itemize}
+  \item Usually gigabytes in size
+  \item Do not make much sense for cloud. Use a larger instance instead.
+  \end{itemize}
+\end{itemize}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -171,15 +275,6 @@ You can go on a hunt for the biggest directory structures of your image. The fol
     create a snapshot of it and use thas as a new image.
   \end{itemize}
 \item It should be just as easy as creating an image from an existing one.
-\end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{Image Creation -- Tools}
-\framesubtitle{}
-\begin{itemize}
-\item 
 \end{itemize}
 \end{frame}
 

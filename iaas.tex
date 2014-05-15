@@ -2,7 +2,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{IaaS -- Components}
+\frametitle{IaaS}
+\framesubtitle{Components}
 \begin{columns}
 \column{.3\textwidth}
 \begin{itemize}
@@ -19,8 +20,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{IaaS -- What is an image?}
-\framesubtitle{}
+\frametitle{IaaS}
+\framesubtitle{What is an image?}
 There are various answers to this question
 \begin{itemize}
 \item Typically
@@ -38,8 +39,8 @@ There are various answers to this question
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{IaaS -- What is an instance?}
-\framesubtitle{}
+\frametitle{IaaS}
+\framesubtitle{What is an instance?}
 \begin{itemize}
 \item A virtual machine (VM)
   \begin{itemize}
@@ -47,6 +48,51 @@ There are various answers to this question
   \item ... given an amount of \emph{resources}
   \item ... and additional parameters (aka. \emph{user-data})
   \end{itemize}
+\item User data is used to pass parameters to the instance
+  \begin{itemize}
+  \item This is used in the \emph{contextualization} process
+  \item More details on this later
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{IaaS}
+\framesubtitle{Storage}
+Storage usually comes in two flavors
+\begin{itemize}
+\item Block Storage
+  \begin{itemize}
+  \item Can be attached to VM instances as block devices
+  \item Transparent to applications running within VM
+  \item Used to store data persistently (until the block device is deleted)
+  \end{itemize}
+\item Object Storage
+  \begin{itemize}
+  \item Accessible from anywhere (within and outside VMs)
+  \item Virtually infinitely scalable
+  \item Standard to access: CDMI
+  \end{itemize}
+\item More details on storage later
+\end{itemize}
+\begin{tikzpicture}
+  \node at (10,5.5) [absolute,overlay] {\pgfimage[width=3cm]{images/DBaaS.png}};
+  \node at (10,1.5) [absolute,overlay] {\pgfimage[width=3cm]{images/Object_Storage_Relations.png}};
+\end{tikzpicture}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Network}
+Network as a resource, or Software Defined Networks (SDN) do not (yet) play a role in the EGI Federated Cloud.
+
+\vspace{1em}
+However
+\begin{itemize}
+\item At some sites users need to explicitly add public IP addresses
+  to instances to make the available to the world
+\item This can be achieved through the OCCI interface.
 \end{itemize}
 \end{frame}
 

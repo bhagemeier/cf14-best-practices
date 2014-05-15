@@ -4,15 +4,32 @@
 \begin{frame}
 \frametitle{Application Architecture}
 \framesubtitle{}
-
+\begin{quote}
+  ``Do what you would do anyway to build a highly scalable web application.''\\
+  \hfill{}-- George Reese
+\end{quote}
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Application Architecture}
+\framesubtitle{Desaster Recovery}
+\begin{itemize}
+\item Plan for the worst, instances can and will fail
+\item Automation, e.g. through contextualization will help
+  \begin{itemize}
+  \item More on this later as part of contextualization
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Compute and Data}
 \framesubtitle{}
-The cloud is not only about VM instances for data processing. It is
+The cloud is not only about VM instances for processing. It is
 also about data, storage, network, etc. Try and keep these concerns
 separated.
 
@@ -47,7 +64,7 @@ An Example
 
 \includegraphics[width=.4\textwidth]{images/DBaaS.png}
 
-\tiny Also mentioned in ``Cloud Application Architectures'' by George Reese
+\hfill\tiny Also mentioned in ``Cloud Application Architectures'' by George Reese
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -64,8 +81,14 @@ An Example
 |       |-- debian.cnf
 |       |-- debian-start
 |       |-- my.cnf
-|-- lost+found
 `-- mysql
+\end{lstlisting}
+The mysql service startup script has been modified to wait for the /mysql mountpoint
+to come online. The mount point has been configured in /etc/cloud/cloud.cfg.d/01\_mounts.cfg
+\begin{lstlisting}
+mounts:
+ - [ ephemeral0, /ephemeral ]
+ - [ vdc, /mysql ]
 \end{lstlisting}
 \end{frame}
 
