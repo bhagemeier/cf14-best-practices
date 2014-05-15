@@ -37,7 +37,9 @@
         \parsep=0pt
         \begin{beamercolorbox}[wd=\paperwidth,ht=\head@height,dp=3pt]{section in head}
         \copy\logobox
-        \raise20pt\hbox{\insertframetitle}
+        \raise10pt\vbox{\strut{%
+            \insertframetitle\\
+            \scriptsize{\insertframesubtitle\strut}}}
         \end{beamercolorbox}
 }
 
