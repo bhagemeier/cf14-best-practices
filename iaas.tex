@@ -1,3 +1,4 @@
+\label{part_iaas}
 \part{Infrastrucuture as a Service -- IaaS}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -32,6 +33,10 @@ There are various answers to this question
 \item Application data can be conveyed within images
 \item Image is usually used as a term for a \emph{template} to create
   a virtual machine or \emph{instance} of it.
+  \begin{itemize}
+  \item In OCCI terms, an image is an \emph{Operating System Template
+    -- OS Template}
+  \end{itemize}
 %% another wonderful diagram showing the relations among image and instance
 %% will add additional relations later on, e.g. block storage volumes
 \end{itemize}
@@ -51,7 +56,7 @@ There are various answers to this question
 \item User data is used to pass parameters to the instance
   \begin{itemize}
   \item This is used in the \emph{contextualization} process
-  \item More details on this later
+  \item More details on this \hyperlink{part_contextualization}{later}
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -74,7 +79,7 @@ Storage usually comes in two flavors
   \item Virtually infinitely scalable
   \item Standard to access: CDMI
   \end{itemize}
-\item More details on storage later
+\item More details on storage \hyperlink{part_storage}{later}
 \end{itemize}
 \begin{tikzpicture}
   \node at (10,5.5) [absolute,overlay] {\pgfimage[width=3cm]{images/DBaaS.png}};
