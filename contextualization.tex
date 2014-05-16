@@ -20,7 +20,7 @@
   \begin{itemize}
     \item transfer large amounts of data
     \item perform complex or interactive tasks
-    \item replace configuration management or orchestration tools
+    \item replace orchestration or provisioning tools
   \end{itemize}
 \end{frame}
 
@@ -55,37 +55,92 @@
 
   \hfill\\
 
-  For details, see \href{http://cloudinit.readthedocs.org/en/latest/index.html}{\nolinkurl{http://cloudinit.readthedocs.org/en/latest/index.html}}.
+  For details, see \href{http://cloudinit.readthedocs.org/en/latest/index.html}{\nolinkurl{http://cloudinit.readthedocs.org/en/latest/index.html}}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Contextualization}
-  \framesubtitle{Using Orchestration}
+  \framesubtitle{Using provisioning}
 
   \begin{itemize}
-    \item TODO
+    \item Advanced task automation and parallelization
+    \item Typically using a declarative approach
+    \item Slow start, considerable advantages later on
+    \item Preferred method for the cloud environment
   \end{itemize}
 
-  \textbf{Tools}: puppet, chef, ansible, salt, CFEngine
+  \hfill \\
+
+  \textbf{Tools}: puppet, chef, ansible, salt, CFEngine, \dots
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Contextualization}
-  \framesubtitle{Usage Example -- Simple}
+  \framesubtitle{Usage example -- Simple}
+
+  \begin{lstlisting}
+#cloud-config
+
+groups:
+  - cloud-users
+
+users:
+  - name: cloudman
+    gecos: Cloud H. Man
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: cloud-users, admin
+    lock-passwd: true
+    ssh-authorized-keys:
+      - <ssh pub key 1>
+      - <ssh pub key 2>
+  \end{lstlisting}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Contextualization}
-  \framesubtitle{Usage Example -- Advanced}
+  \framesubtitle{Usage example -- Advanced}
+
+  \begin{lstlisting}
+#cloud-config
+
+mounts:
+- [vdc,/data,ext4]
+
+package_upgrade: true
+
+packages:
+- qemu-guest-agent
+
+phone_home:
+  url: http://my.master.org/instances/$INSTANCE_ID
+  post: [ pub_key_rsa, instance_id ]
+
+final_message: "The system is ready!"
+  \end{lstlisting}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Contextualization}
-  \framesubtitle{Usage Example -- Orchestration}
+  \framesubtitle{Usage example -- Provisioning}
+
+  \begin{lstlisting}
+#cloud-config
+
+puppet:
+ conf:
+   agent:
+     server: "my.master.org"
+     certname: "%i.%f"
+
+   ca_cert: |
+     -----BEGIN CERTIFICATE-----
+     ... omitted ...
+     -----END CERTIFICATE-----
+  \end{lstlisting}
 \end{frame}
 
 %%% Local Variables:
