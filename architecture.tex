@@ -62,9 +62,9 @@ An Example
 \item Create a block storage template containing MySQL data directories
 \item Modify MySQL startup scripts to wait for availability of block device
 \end{itemize}
-
+\begin{center}
 \includegraphics[width=.4\textwidth]{images/DBaaS.png}
-
+\end{center}
 \hfill\tiny Also mentioned in ``Cloud Application Architectures'' by George Reese
 \end{frame}
 
@@ -84,13 +84,10 @@ An Example
 |       |-- my.cnf
 `-- mysql
 \end{lstlisting}
-The mysql service startup script has been modified to wait for the /mysql mountpoint
-to come online. The mount point has been configured in /etc/cloud/cloud.cfg.d/01\_mounts.cfg
-\begin{lstlisting}
-mounts:
- - [ ephemeral0, /ephemeral ]
- - [ vdc, /mysql ]
-\end{lstlisting}
+The mysql service startup script has been modified to wait for the
+/mysql mountpoint to come online. This requires the external block
+device, e.\,g. \texttt{/dev/vdc}, to be mounted on that specific mount
+point.
 \end{frame}
 
 %%% Local Variables:
