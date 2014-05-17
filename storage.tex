@@ -61,39 +61,59 @@
   \frametitle{Storage}
   \framesubtitle{Object storage -- CDMI}
 
-  TODO
+  TODO: picture
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Storage}
-  \framesubtitle{Example I.}
+  \framesubtitle{Examples I.}
 
   \begin{description}
-    \item[Problem]
-    \item[Solution]
+    \item[Problem] My application works with a considerable amount of disposable data. Read/write random access to files is required.
+    \item[Solution] Use on-the-fly created block storage. It's designed to accommodate random read/write access to files. Your data
+                    is disposable by nature, there is no need to move it somewhere at the end of virtual machine's life-cycle.
+  \end{description}
+
+  \hfill \\
+
+  \begin{description}
+    \item[Problem] My application works with structured data in a database. Data is persistent by nature.
+    \item[Solution] Use persistent block storage. Configure the database to store its data files in a separately mounted block device.
   \end{description}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Storage}
-  \framesubtitle{Example II.}
+  \framesubtitle{Examples II.}
 
   \begin{description}
-    \item[Problem]
-    \item[Solution]
+    \item[Problem] My application requires a large read-only data set. Data is the same across multiple instances and
+                   organized into a smaller number of large files. Random access is not required. Small parts of the data set
+                   are needed for specific actions.
+    \item[Solution] Use object storage to eliminate data duplication. Keep images small. On-demand access to data for every instance.
+  \end{description}
+
+  \hfill \\
+
+  \begin{description}
+    \item[Problem] I need to store the results of my computation and possibly share them with my colleagues. Data should be stored
+                   for a longer period of time and still accessible.
+    \item[Solution] Use object storage. After your computation is finished, store the resulting files and terminate all running instances.
   \end{description}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Storage}
-  \framesubtitle{Example III.}
+  \framesubtitle{Examples III.}
 
   \begin{description}
-    \item[Problem]
-    \item[Solution]
+    \item[Problem] I have a complex application requiring a random read/write access to a large data set. Changes are disposable
+                   by nature. Results are stored separately. A single "run" takes a long time.
+    \item[Solution] Use a combination of block and object storage. Start instances with larger amounts of local block storage,
+                    pull data from object storage and cache it locally. Store results in object storage after you are done.
   \end{description}
 \end{frame}
 
