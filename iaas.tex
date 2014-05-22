@@ -30,13 +30,13 @@ There are various answers to this question
   \item A blob of data representing the contents of a disk or file system
   \item Usually contains the root file system contents of an operating system
   \end{itemize}
-\item Application data can be conveyed within images
 \item Image is usually used as a term for a \emph{template} to create
   a virtual machine or \emph{instance} of it.
   \begin{itemize}
   \item In OCCI terms, an image is an \emph{Operating System Template
     -- OS Template}
   \end{itemize}
+  \item Application data can be conveyed within images
 %% another wonderful diagram showing the relations among image and instance
 %% will add additional relations later on, e.g. block storage volumes
 \end{itemize}
@@ -46,6 +46,8 @@ There are various answers to this question
 \begin{frame}
 \frametitle{IaaS}
 \framesubtitle{What is an instance?}
+\begin{columns}
+\column{.6\textwidth}
 \begin{itemize}
 \item A virtual machine (VM)
   \begin{itemize}
@@ -58,7 +60,18 @@ There are various answers to this question
   \item This is used in the \emph{contextualization} process
   \item More details on this \hyperlink{part_contextualization}{later}
   \end{itemize}
+  \item Links are used to associate
+  \begin{itemize}
+  \item Block storage
+  \item Public networks
+  \end{itemize}
 \end{itemize}
+\column{.4\textwidth}
+\begin{tikzpicture}[overlay]
+\node<1> at (2,0) [absolute,overlay] {\pgfimage[width=\textwidth]{images/Instance_Ingredients.png}};
+\node<2> at (2,0) [absolute,overlay] {\pgfimage[width=\textwidth]{images/Instance_Links.png}};
+\end{tikzpicture}
+\end{columns}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -90,14 +103,16 @@ Storage usually comes in two flavors
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Network}
-Network as a resource, or Software Defined Networks (SDN) do not (yet) play a role in the EGI Federated Cloud.
+Network as a resource, or Software Defined Networks (SDN) do not play
+a role in the EGI Federated Cloud.
 
 \vspace{1em}
 However
 \begin{itemize}
 \item At some sites users need to explicitly add public IP addresses
   to instances to make them available to the world
-\item This can be achieved through the OCCI interface.
+\item This can be achieved through the OCCI interface by means of links
+\item Only public IPs make the VM accessible from the outside world
 \end{itemize}
 \end{frame}
 
